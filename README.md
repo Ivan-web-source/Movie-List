@@ -2,8 +2,6 @@
 
 ## Application Mechanism
 
-## Application Mechanism
-
 By using the m-Cinema application, users will see a **list of movie** into the app. The **movie** itself contains some relevant information such as:
 - genre 
 - duration 
