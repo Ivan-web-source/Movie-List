@@ -7,7 +7,7 @@ By using the Movie Collection application, users can create a **list of movie** 
 - director
 - genre 
 - duration 
-for the movie. Then, users can enter the information and their personal rating for the **movie**.
+for the movie. Then, users can enter their personal rating for the **movie**.
 
 ## Application Usage & Interest
 
