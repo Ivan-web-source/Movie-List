@@ -15,7 +15,7 @@ As for the functionality of this application, **cinema enjoyers** can use this a
 
 ## User Stories Phase 0
 
-- As a user, I want to be able to create a new movie and add it to a list of movie 
+- As a user, I want to be able to create a new movie and add it to a list of movie (done)
 - As a user, I want to be able to view a list of the titles of the movies in my list of movie
 - As a user, I want to be able to see the number of watched and not watched movies in my list
-- As a user, I want to be able to give a rating to each movie that I have already watched
+- As a user, I want to be able to give a rating to each movie that I have already watched (done)
