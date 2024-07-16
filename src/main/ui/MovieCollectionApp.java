@@ -51,18 +51,14 @@ public class MovieCollectionApp {
     // EFFECTS: processes the user's input in the main menu
     public void processMenuCommands(String choice) {
         lineDivider();
-        switch (choice) {
-            case "a":
-                addMovie();
-                break;
-            case "u":
-                viewUnwatchedMovies();
-                break;
-            case "q":
-                exitApplication();
-                break;
-            default :
-                System.out.println("An unavailable input was given. Please try again.");
+        if (choice.equals("a")) {
+            addMovie();
+        } else if (choice.equals("u")) {
+            viewUnwatchedMovies();
+        } else if (choice.equals("q")) {
+            exitApplication();
+        } else {
+            System.out.println("An unavailable input was given. Please try again.");
         }
         lineDivider();
     }
