@@ -6,38 +6,27 @@ public class Movie {
     private String genre;
     private int duration;
     private int rating;
+    private boolean isWatched;
 
     // EFFECTS: construct a movie object with empty information
-    public Movie() {
-
-    }
-
-    public void setTitle(String t) {
-        this.title = t;
+    public Movie(String title,String director,String genre,int duration) {
+        this.title = title;
+        this.director = director;
+        this.genre = genre;
+        this.duration = duration;
+        isWatched = false;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setDirector(String director) {
-        this.director = director;
-    } 
-
     public String getDirector() {
         return director;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
     public String getGenre() {
         return genre;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
     }
 
     public int getDuration() {
@@ -50,5 +39,13 @@ public class Movie {
 
     public int getRating() {
         return rating;
+    }
+
+    public void markAsWatched() {
+        isWatched = true;
+    }
+
+    public boolean getWatchedStatus() {
+        return isWatched;
     }
 }
