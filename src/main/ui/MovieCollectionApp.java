@@ -43,6 +43,7 @@ public class MovieCollectionApp {
     public void launchMenu() {
         System.out.println("Please enter the following option:\n");
         System.out.println("a: Add a new movie");
+        System.out.println("v: View all list of movies");
         System.out.println("u: View unwatched movies");
         System.out.println("q: Exit application");
         lineDivider();
@@ -53,6 +54,8 @@ public class MovieCollectionApp {
         lineDivider();
         if (choice.equals("a")) {
             addMovie();
+        } else if (choice.equals("v")) {
+            viewListOfMovies();
         } else if (choice.equals("u")) {
             viewUnwatchedMovies();
         } else if (choice.equals("q")) {
@@ -67,21 +70,45 @@ public class MovieCollectionApp {
     // EFFECTS: adds a new movie into the list of movie
     public void addMovie() {
         System.out.println("Please enter the movie's title:");
-        String title = this.input.nextLine();
+        String title = input.nextLine();
 
         System.out.println("\nPlease enter the movie's director:");
-        String director = this.input.nextLine();
+        String director = input.nextLine();
 
         System.out.println("\nPlease enter the movie's genre:");
-        String genre = this.input.nextLine();
+        String genre = input.nextLine();
 
         System.out.println("\nPlease enter the movie's duration:");
-        int duration = this.input.nextInt();
+        int duration = input.nextInt();
+        input.nextLine(); 
 
         Movie newMovie = new Movie(title, director, genre, duration);
 
         listOfMovies.add(newMovie);
         System.out.println("\nNew Movie successfully added!");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: shows a list of all added movies
+    public void viewListOfMovies() {
+        displayListOfMovies(listOfMovies);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: shows a list of all the added movies by its title
+    public void displayListOfMovies(List<Movie> listOfMovies) {
+        if (listOfMovies.isEmpty()) {
+            System.out.println("No movies added.");
+            return;
+        }
+
+        System.out.println("Your Movie List:\n");
+        for (Movie currentMovie : listOfMovies) {
+            movieCount++;
+            System.out.println("Movie " + movieCount + " title: " + currentMovie.getTitle());
+        }
+        movieCount = 0;
+        lineDivider();
     }
 
     // MODIFIES: this
@@ -95,55 +122,68 @@ public class MovieCollectionApp {
             }
         }
 
-        displayGivenMovies(unwatchedMovies);
+        displayUnwatchedMovies(unwatchedMovies);
     }
 
     // MODIFIES: this
-    // EFFECTS: shows a list of all the added movies by its title
-    public void displayGivenMovies(List<Movie> listOfMovies) {
-        if (listOfMovies.isEmpty()) {
+    // EFFECTS: shows a list of all the unwatched movies by its title
+    public void displayUnwatchedMovies(List<Movie> unwatchedMovies) {
+        if (unwatchedMovies.isEmpty()) {
             System.out.println("No movies added.");
             return;
         }
 
         System.out.println("Your Movie List:\n");
-        for (Movie currentMovie : listOfMovies) {
+        for (Movie currentMovie : unwatchedMovies) {
             movieCount++;
             System.out.println("Movie " + movieCount + ": " + currentMovie.getTitle());
-            editOption(currentMovie);
         }
+        editOption(unwatchedMovies);
         movieCount = 0;
         lineDivider();
     }
 
     // MODIFIES: this
     // EFFECTS: launch a mark and rate option in the list of watched movies
-    public void editOption(Movie currentMovie) {
-        System.out.println("Enter 'm' to mark this movie as watched.");
+    public void editOption(List<Movie> unwatchedMovies) {
+        System.out.println("Enter 'm' to mark a movie as watched.");
         lineDivider();
         String markChoice = input.nextLine();
 
         if (markChoice.equals("m")) {
-            currentMovie.markAsWatched();
-            enterRating(currentMovie);
+            selectForRating(unwatchedMovies);
         } else {
             System.out.println("Invalid option. Please try again.");
         }
-        lineDivider();
     }
 
-    // REQUIRES: newMovie != null
+    // REQUIRES: numberInput <= unwatchedMovies.length()
+    // MODIFIES: this
+    // EFFECTS: select a movie in the list to be rated by the user
+    public void selectForRating(List<Movie> unwatchedMovies) {
+        System.out.println("Enter a number for the movie you want to rate");
+        int numberInput = input.nextInt();
+        input.nextLine();
+        int movieIndex = numberInput - 1;
+        Movie movieToRate = listOfMovies.get(movieIndex);
+        enterRating(movieToRate);
+    }
+        
+    // REQUIRES: Movie != null 
     // MODIFIES: this
     // EFFECTS: receives a rating (1-5) and save it for a movie
     public void enterRating(Movie Movie) {
         System.out.println("Please enter a rating for the movie.");
         int rateInput = input.nextInt();
+        input.nextLine();
         while (rateInput < 1 || rateInput >5) {
             System.out.println("Enter a number between 1-5!");
             rateInput = input.nextInt();
+            input.nextLine();
         }
         Movie.setRating(rateInput);
-        System.out.println("A rating of " + rateInput + "has been received.");
+        Movie.markAsWatched();
+        System.out.println("A rating of " + rateInput + " has been received.");
     }
     
     // MODIFIES: this
@@ -155,6 +195,6 @@ public class MovieCollectionApp {
 
     // EFFECTS: prints a line dashed to separate the app introduction
     private void lineDivider() {
-        System.out.println("------------------------------");
+        System.out.println("-------------------------------");
     }
 }
