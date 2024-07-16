@@ -21,18 +21,6 @@ public class Movie {
         return title;
     }
 
-    public String getDirector() {
-        return director;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
     public void setRating(int r) {
         rating = r;
     }
@@ -41,6 +29,8 @@ public class Movie {
         return rating;
     }
 
+    // MODIFIES: this
+    // EFFECTS: mark a movie status as watched
     public void markAsWatched() {
         isWatched = true;
     }
