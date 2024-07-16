@@ -109,6 +109,13 @@ public class MovieCollectionApp {
         }
         movieCount = 0;
         lineDivider();
+        System.out.println("Enter q to return to the main menu.");
+        String quit = input.nextLine();
+        while (!quit.equals("q")) {
+            System.out.println("Incorrect input. Please try again.");
+            System.out.println("Enter q to return to the main menu.");
+            quit = input.nextLine();
+        }
     }
 
     // MODIFIES: this
@@ -165,7 +172,7 @@ public class MovieCollectionApp {
         int numberInput = input.nextInt();
         input.nextLine();
         int movieIndex = numberInput - 1;
-        Movie movieToRate = listOfMovies.get(movieIndex);
+        Movie movieToRate = unwatchedMovies.get(movieIndex);
         enterRating(movieToRate);
     }
         
