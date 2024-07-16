@@ -127,11 +127,6 @@ public class MovieCollectionApp {
     // MODIFIES: this
     // EFFECTS: shows a list of all the added movies by its full received information
     private void expandListOfMovies() {
-        if (listOfMovies.isEmpty()) {
-            System.out.println("No movies added.");
-            return;
-        }
-
         System.out.println("Your Movie List:\n");
         for (Movie currentMovie : listOfMovies) {
             movieCount++;
@@ -216,17 +211,17 @@ public class MovieCollectionApp {
     // REQUIRES: Movie != null 
     // MODIFIES: this
     // EFFECTS: receives a rating (1-5) and save it for a movie
-    public void enterRating(Movie Movie) {
+    public void enterRating(Movie movie) {
         System.out.println("Please enter a rating for the movie.");
         int rateInput = input.nextInt();
         input.nextLine();
-        while (rateInput < 1 || rateInput >5) {
+        while (rateInput < 1 || rateInput > 5) {
             System.out.println("Enter a number between 1-5!");
             rateInput = input.nextInt();
             input.nextLine();
         }
-        Movie.setRating(rateInput);
-        Movie.markAsWatched();
+        movie.setRating(rateInput);
+        movie.markAsWatched();
         System.out.println("A rating of " + rateInput + " has been received.");
     }
     

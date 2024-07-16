@@ -8,7 +8,7 @@ public class Movie {
     private int rating;
     private boolean isWatched;
 
-    // EFFECTS: construct a movie object with empty information
+    // EFFECTS: construct a movie object with the given information in the parameter
     public Movie(String title,String director,String genre,int duration) {
         this.title = title;
         this.director = director;

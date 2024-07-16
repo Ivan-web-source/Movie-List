@@ -1,24 +1,35 @@
 package model;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.*;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestMovie {
-    private Movie testMovie;
-    private List<Movie> testMovieList;
+    private Movie testMovie1;
     
     @BeforeEach
     void runBefore() {
-        testMovieList = new ArrayList<>();
-        testMovie = new Movie();
+        testMovie1 = new Movie("John Wick 1", "Cilian Murphy", "Action", 120);
     }
 
     @Test
-    void constructorTest() {
-        assertTrue(true);
+    void testConstructor() {
+        assertEquals("John Wick 1", testMovie1.getTitle());
+        assertEquals("Cilian Murphy", testMovie1.getDirector());
+        assertEquals("Action", testMovie1.getGenre());
+        assertEquals(120, testMovie1.getDuration());
+        assertFalse(testMovie1.getWatchedStatus());
+    }
+
+    @Test 
+    void testMarkAsWatched() {
+        testMovie1.markAsWatched();
+        assertTrue(testMovie1.getWatchedStatus());
+    }
+
+    @Test 
+    void testMarkAsWatchedMultiple() {
+        testMovie1.markAsWatched();
+        testMovie1.markAsWatched();
+        assertTrue(testMovie1.getWatchedStatus());
     }
 }
