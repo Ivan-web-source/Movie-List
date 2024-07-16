@@ -123,13 +123,11 @@ public class MovieCollectionApp {
         lineDivider();
         String markChoice = input.nextLine();
 
-        switch (markChoice) {
-            case "m":
-                currentMovie.markAsWatched();
-                enterRating(currentMovie);
-                break;
-            default:
-                System.out.println("Invalid option. Please try again.");
+        if (markChoice.equals("m")) {
+            currentMovie.markAsWatched();
+            enterRating(currentMovie);
+        } else {
+            System.out.println("Invalid option. Please try again.");
         }
         lineDivider();
     }
