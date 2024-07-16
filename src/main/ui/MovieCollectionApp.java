@@ -24,7 +24,7 @@ public class MovieCollectionApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: initialize the application objects with starting values
+    // EFFECTS: initialize the application objects with the starting values
     public void init() {
         input = new Scanner(System.in);
         listOfMovies = new ArrayList<>();
@@ -39,7 +39,7 @@ public class MovieCollectionApp {
         processMenuCommands(choice);
     }
 
-    // EFFECTS: launch a choice of input options 
+    // EFFECTS: prints a choice of input options 
     public void launchMenu() {
         System.out.println("Please enter the following option:\n");
         System.out.println("a: Add a new movie");
@@ -78,7 +78,7 @@ public class MovieCollectionApp {
         System.out.println("\nPlease enter the movie's genre:");
         String genre = input.nextLine();
 
-        System.out.println("\nPlease enter the movie's duration:");
+        System.out.println("\nPlease enter the movie's duration (mins):");
         int duration = input.nextInt();
         input.nextLine(); 
 
@@ -109,12 +109,49 @@ public class MovieCollectionApp {
         }
         movieCount = 0;
         lineDivider();
+        System.out.println("Enter e to expand your movie list.");
         System.out.println("Enter q to return to the main menu.");
-        String quit = input.nextLine();
-        while (!quit.equals("q")) {
+        String viewButton = input.nextLine();
+        while (!viewButton.equals("q") && !viewButton.equals("e")) {
+            System.out.println("Incorrect input. Please try again.");
+            System.out.println("Enter e to expand your movie list.");
+            System.out.println("Enter q to return to the main menu.");
+            viewButton = input.nextLine();
+        }
+
+        if (viewButton.equals("e")) {
+            expandListOfMovies();
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: shows a list of all the added movies by its full received information
+    private void expandListOfMovies() {
+        if (listOfMovies.isEmpty()) {
+            System.out.println("No movies added.");
+            return;
+        }
+
+        System.out.println("Your Movie List:\n");
+        for (Movie currentMovie : listOfMovies) {
+            movieCount++;
+            System.out.println("Movie " + movieCount + " title: " + currentMovie.getTitle());
+            System.out.println("Director: " + currentMovie.getDirector());
+            System.out.println("Genre: " + currentMovie.getGenre());
+            System.out.println("Duration (mins): " + currentMovie.getDuration());
+            if (currentMovie.getWatchedStatus() == true) {
+                System.out.println("Rating (personal): " + currentMovie.getRating());
+            }
+            lineDivider();
+        }
+        movieCount = 0;
+        lineDivider();
+        System.out.println("Enter q to return to the main menu.");
+        String expandButton = input.nextLine();
+        while (!expandButton.equals("q")) {
             System.out.println("Incorrect input. Please try again.");
             System.out.println("Enter q to return to the main menu.");
-            quit = input.nextLine();
+            expandButton = input.nextLine();
         }
     }
 
