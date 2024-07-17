@@ -1,5 +1,8 @@
 package model;
 
+// Creates a movie object that has some relevant details like title, director,
+// genre, duration. The movie object also has an identifier for user to control
+// the watched status and personal rating.
 public class Movie {
     private String title;
     private String director;

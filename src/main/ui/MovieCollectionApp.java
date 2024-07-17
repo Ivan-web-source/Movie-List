@@ -1,9 +1,14 @@
+// This class uses some formatting code that has been shown and used in 
+// CPSC 210 Lab 3.
 package ui;
 
 import model.Movie;
 
 import java.util.*;
 
+// Create an interactive MovieCollection app that can add new movies,
+// see the list of unwatched movies, mark unwatched movies as watched movies,
+// and give a personal rating for their watched movies.
 public class MovieCollectionApp {
     private List<Movie> listOfMovies;
     private Scanner input;
