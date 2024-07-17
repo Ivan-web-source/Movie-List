@@ -1,7 +1,10 @@
 package model;
 
-import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 
 public class TestMovie {
     private Movie testMovie1;
@@ -18,6 +21,20 @@ public class TestMovie {
         assertEquals("Action", testMovie1.getGenre());
         assertEquals(120, testMovie1.getDuration());
         assertFalse(testMovie1.getWatchedStatus());
+        assertEquals(0, testMovie1.getRating());
+    }
+
+    @Test
+    void testSetRating() {
+        testMovie1.setRating(4);
+        assertEquals(4, testMovie1.getRating());
+    }
+
+    @Test
+    void testSetRatingMultiple() {
+        testMovie1.setRating(4);
+        testMovie1.setRating(2);
+        assertEquals(2, testMovie1.getRating());
     }
 
     @Test 

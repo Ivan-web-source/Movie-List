@@ -9,11 +9,13 @@ public class Movie {
     private boolean isWatched;
 
     // EFFECTS: construct a movie object with the given information in the parameter
+    //          and with initial rating because movie hasn't been watched
     public Movie(String title,String director,String genre,int duration) {
         this.title = title;
         this.director = director;
         this.genre = genre;
         this.duration = duration;
+        rating = 0;
         isWatched = false;
     }
 

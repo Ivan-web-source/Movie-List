@@ -32,7 +32,7 @@ public class MovieCollectionApp {
         movieCount = 0;
     }
 
-    // EFFECTS: launch the menu display and process the user input
+    // EFFECTS: launch the menu display and user input
     public void handleMenu() {
         launchMenu();
         String choice = input.nextLine();
@@ -88,7 +88,6 @@ public class MovieCollectionApp {
         System.out.println("\nNew Movie successfully added!");
     }
 
-    // MODIFIES: this
     // EFFECTS: shows a list of all added movies
     public void viewListOfMovies() {
         displayListOfMovies(listOfMovies);
@@ -96,6 +95,7 @@ public class MovieCollectionApp {
 
     // MODIFIES: this
     // EFFECTS: shows a list of all the added movies by its title
+    //          along with the movie order of being added into the list
     public void displayListOfMovies(List<Movie> listOfMovies) {
         if (listOfMovies.isEmpty()) {
             System.out.println("No movies added.");
@@ -126,6 +126,7 @@ public class MovieCollectionApp {
 
     // MODIFIES: this
     // EFFECTS: shows a list of all the added movies by its full received information
+    //          along with the movie order of being added into the list
     private void expandListOfMovies() {
         System.out.println("Your Movie List:\n");
         for (Movie currentMovie : listOfMovies) {
@@ -151,7 +152,7 @@ public class MovieCollectionApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: shows a list of unwatched movies
+    // EFFECTS: shows a list of all unwatched movies 
     public void viewUnwatchedMovies() {
         List<Movie> unwatchedMovies = new ArrayList<>();
 
@@ -166,6 +167,7 @@ public class MovieCollectionApp {
 
     // MODIFIES: this
     // EFFECTS: shows a list of all the unwatched movies by its title
+    //          and its order of being added into the list
     public void displayUnwatchedMovies(List<Movie> unwatchedMovies) {
         if (unwatchedMovies.isEmpty()) {
             System.out.println("No movies added.");
@@ -183,7 +185,7 @@ public class MovieCollectionApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: launch a mark and rate option in the list of watched movies
+    // EFFECTS: launch a mark and rate option in the list of unwatched movies
     public void editOption(List<Movie> unwatchedMovies) {
         System.out.println("Enter 'm' to mark a movie as watched.");
         lineDivider();
