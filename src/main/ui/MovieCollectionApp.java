@@ -4,6 +4,7 @@
 package ui;
 
 import model.Movie;
+import model.MovieCollection;
 
 import java.util.*;
 
@@ -11,7 +12,8 @@ import java.util.*;
 // see the list of unwatched movies, mark unwatched movies as watched movies,
 // and give a personal rating for their watched movies.
 public class MovieCollectionApp {
-    private List<Movie> listOfMovies;
+    private MovieCollection movieList;
+    private MovieCollection unwatchedCollection;
     private Scanner input;
     private boolean isProgramRunning;
     private int movieCount;
@@ -33,7 +35,8 @@ public class MovieCollectionApp {
     // EFFECTS: initialize the application objects with the starting values
     public void init() {
         input = new Scanner(System.in);
-        listOfMovies = new ArrayList<>();
+        movieList = new MovieCollection();
+        unwatchedCollection = new MovieCollection();
         isProgramRunning = true;
         movieCount = 0;
     }
@@ -90,30 +93,32 @@ public class MovieCollectionApp {
 
         Movie newMovie = new Movie(title, director, genre, duration);
 
-        listOfMovies.add(newMovie);
+        movieList.addMovie(newMovie);
         System.out.println("\nNew Movie successfully added!");
     }
 
     // EFFECTS: shows a list of all added movies
     public void viewListOfMovies() {
-        displayListOfMovies(listOfMovies);
+        List<Movie> movieCollection = movieList.getMovieList();
+        displayListOfMovies(movieCollection);
     }
 
     // MODIFIES: this
     // EFFECTS: shows a list of all the added movies by its title
     //          along with the movie order of being added into the list
-    public void displayListOfMovies(List<Movie> listOfMovies) {
-        if (listOfMovies.isEmpty()) {
+    public void displayListOfMovies(List<Movie> movieList) {
+        if (movieList.isEmpty()) {
             System.out.println("No movies added.");
             return;
         }
 
         System.out.println("Your Movie List:\n");
-        for (Movie currentMovie : listOfMovies) {
+        for (Movie currentMovie : movieList) {
             movieCount++;
             System.out.println("Movie " + movieCount + " title: " + currentMovie.getTitle());
         }
         movieCount = 0;
+
         lineDivider();
         System.out.println("Enter e to expand your movie list.");
         System.out.println("Enter q to return to the main menu.");
@@ -126,16 +131,16 @@ public class MovieCollectionApp {
         }
 
         if (viewButton.equals("e")) {
-            expandListOfMovies();
+            expandListOfMovies(movieList);
         }
     }
 
     // MODIFIES: this
     // EFFECTS: shows a list of all the added movies by its full received information
     //          along with the movie order of being added into the list
-    private void expandListOfMovies() {
+    private void expandListOfMovies(List<Movie> movieCollection) {
         System.out.println("Your Movie List:\n");
-        for (Movie currentMovie : listOfMovies) {
+        for (Movie currentMovie : movieCollection) {
             movieCount++;
             System.out.println("Movie " + movieCount + " title: " + currentMovie.getTitle());
             System.out.println("Director: " + currentMovie.getDirector());
@@ -146,7 +151,6 @@ public class MovieCollectionApp {
             }
             lineDivider();
         }
-        movieCount = 0;
         lineDivider();
         System.out.println("Enter q to return to the main menu.");
         String expandButton = input.nextLine();
@@ -157,18 +161,13 @@ public class MovieCollectionApp {
         }
     }
 
-    // MODIFIES: this
+    // MODIFIES: unwatchedMovies
     // EFFECTS: shows a list of all unwatched movies 
     public void viewUnwatchedMovies() {
-        List<Movie> unwatchedMovies = new ArrayList<>();
 
-        for (Movie currentMovie : listOfMovies) {
-            if (currentMovie.getWatchedStatus() == false) {
-                unwatchedMovies.add(currentMovie);
-            }
-        }
+        unwatchedCollection.viewUnwatched();
 
-        displayUnwatchedMovies(unwatchedMovies);
+        displayUnwatchedMovies(unwatchedCollection.getUnwatchedList());
     }
 
     // MODIFIES: this
