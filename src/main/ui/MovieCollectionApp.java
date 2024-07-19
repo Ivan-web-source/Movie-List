@@ -1,5 +1,6 @@
 // This class uses some formatting code that has been shown and used in 
 // CPSC 210 Lab 3.
+
 package ui;
 
 import model.Movie;
