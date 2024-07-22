@@ -19,3 +19,5 @@ As for the functionality of this application, **cinema enjoyers** can use this a
 - As a user, I want to be able to view a list of the titles of the movies in my list of movie 
 - As a user, I want to be able to see the list of unwatched movies in my list
 - As a user, I want to be able to give a rating to each movie that I have already watched 
+- As a user, I want to have the chance to save my Movie Collection to file
+- As a user, I want to have an option to load my saved Movie Collection from file
