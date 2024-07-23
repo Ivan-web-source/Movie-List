@@ -1,0 +1,21 @@
+{
+    "movies": [
+        {
+            "duration": 67,
+            "director": "greg",
+            "genre": "action",
+            "rating": 0,
+            "watch status": false,
+            "title": "john wick 1"
+        },
+        {
+            "duration": 69,
+            "director": "thom",
+            "genre": "action",
+            "rating": 4,
+            "watch status": true,
+            "title": "john wick 2"
+        }
+    ],
+    "name": "Ivan's 1st file"
+}

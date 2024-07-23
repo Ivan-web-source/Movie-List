@@ -15,7 +15,7 @@ public class TestMovieCollection {
 
     @BeforeEach
     void runBefore() {
-        testMovieList = new MovieCollection();
+        testMovieList = new MovieCollection("my Collection");
         testMovie1 = new Movie("John Wick", "Cilian Murphy", "Action", 120);
         testMovie2 = new Movie("John Wick 2", "Kylian Mbappe", "Romance", 60);
         testMovie3 = new Movie("John Wick 3", "Natasha Romanoff", "Sci-fi", 127);
@@ -24,6 +24,7 @@ public class TestMovieCollection {
     @Test
     void testConstructor() {
         ArrayList<Movie> testEmptyList = new ArrayList<>();
+        assertEquals("my Collection", testMovieList.getName());
         assertEquals(testEmptyList, testMovieList.getMovieList());
         assertEquals(testEmptyList, testMovieList.getUnwatchedList());
     }

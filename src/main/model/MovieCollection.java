@@ -3,12 +3,19 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieCollection {
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import persistence.Writable;
+
+public class MovieCollection implements Writable {
+    private String name;
     private List<Movie> movieList;
     private List<Movie> unwatchedList;
 
     // EFFECTS: creates two empty movie list
-    public MovieCollection() {
+    public MovieCollection(String name) {
+        this.name = name;
         movieList = new ArrayList<>();
         unwatchedList = new ArrayList<>();
     }
@@ -38,5 +45,28 @@ public class MovieCollection {
                 unwatchedList.add(currentMovie);
             }
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("movies", moviesToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this movie collection as a JSON array
+    private JSONArray moviesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Movie t : movieList) {
+            jsonArray.put(t.toJson());
+        }
+
+        return jsonArray;
     }
 }

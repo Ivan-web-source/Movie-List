@@ -5,16 +5,25 @@ package ui;
 
 import model.Movie;
 import model.MovieCollection;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
+
+import org.json.JSONWriter;
 
 // Create an interactive MovieCollection app that can add new movies,
 // see the list of unwatched movies, mark unwatched movies as watched movies,
 // and give a personal rating for their watched movies.
 public class MovieCollectionApp {
+    private static final String JSON_STORE = "./data/myFile.json";
     private MovieCollection movieList;
-    private MovieCollection unwatchedCollection;
+    // private MovieCollection unwatchedCollection;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
     private boolean isProgramRunning;
     private int movieCount;
 
@@ -35,8 +44,10 @@ public class MovieCollectionApp {
     // EFFECTS: initialize the application objects with the starting values
     public void init() {
         input = new Scanner(System.in);
-        movieList = new MovieCollection();
-        unwatchedCollection = new MovieCollection();
+        movieList = new MovieCollection("Ivan's 1st file");
+        // unwatchedCollection = new MovieCollection("Ivan's 2nd file");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         isProgramRunning = true;
         movieCount = 0;
     }
@@ -54,6 +65,8 @@ public class MovieCollectionApp {
         System.out.println("a: Add a new movie");
         System.out.println("v: View all list of movies");
         System.out.println("u: View unwatched movies");
+        System.out.println("s -> save work room to file");
+        System.out.println("l -> load work room from file");
         System.out.println("q: Exit application");
         lineDivider();
     }
@@ -67,6 +80,10 @@ public class MovieCollectionApp {
             viewListOfMovies();
         } else if (choice.equals("u")) {
             viewUnwatchedMovies();
+        } else if (choice.equals("s")) {
+            saveWorkRoom();
+        } else if (choice.equals("l")) {
+            loadWorkRoom();
         } else if (choice.equals("q")) {
             exitApplication();
         } else {
@@ -165,9 +182,9 @@ public class MovieCollectionApp {
     // EFFECTS: shows a list of all unwatched movies 
     public void viewUnwatchedMovies() {
 
-        unwatchedCollection.viewUnwatched();
+        movieList.viewUnwatched();
 
-        displayUnwatchedMovies(unwatchedCollection.getUnwatchedList());
+        displayUnwatchedMovies(movieList.getUnwatchedList());
     }
 
     // MODIFIES: this
@@ -230,6 +247,29 @@ public class MovieCollectionApp {
         movie.setRating(rateInput);
         movie.markAsWatched();
         System.out.println("A rating of " + rateInput + " has been received.");
+    }
+
+    // EFFECTS: saves the movie collection to file
+    private void saveWorkRoom() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(movieList);
+            jsonWriter.close();
+            System.out.println("Saved " + movieList.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads movie collection from file
+    private void loadWorkRoom() {
+        try {
+            movieList = jsonReader.read();
+            System.out.println("Loaded " + movieList.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
     
     // MODIFIES: this

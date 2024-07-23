@@ -1,9 +1,13 @@
 package model;
 
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 // Creates a movie object that has some relevant details like title, director,
 // genre, duration. The movie object also has an identifier for user to control
 // the watched status and personal rating.
-public class Movie {
+public class Movie implements Writable {
     private String title;
     private String director;
     private String genre;
@@ -54,5 +58,17 @@ public class Movie {
 
     public boolean getWatchedStatus() {
         return isWatched;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("title", title);
+        json.put("director", director);
+        json.put("genre", genre);
+        json.put("duration", duration);
+        json.put("watch status", isWatched);
+        json.put("rating", rating);
+        return json;
     }
 }
