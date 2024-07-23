@@ -1,0 +1,21 @@
+{
+    "movies": [
+        {
+            "duration": 99,
+            "director": "Kevin",
+            "genre": "Sci-fi",
+            "rating": 0,
+            "watch status": false,
+            "title": "Thomas"
+        },
+        {
+            "duration": 127,
+            "director": "Samuel",
+            "genre": "Action",
+            "rating": 0,
+            "watch status": false,
+            "title": "Avenger"
+        }
+    ],
+    "name": "My work room"
+}

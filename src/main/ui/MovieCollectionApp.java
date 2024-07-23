@@ -20,7 +20,6 @@ import org.json.JSONWriter;
 public class MovieCollectionApp {
     private static final String JSON_STORE = "./data/myFile.json";
     private MovieCollection movieList;
-    // private MovieCollection unwatchedCollection;
     private Scanner input;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -45,7 +44,6 @@ public class MovieCollectionApp {
     public void init() {
         input = new Scanner(System.in);
         movieList = new MovieCollection("Ivan's 1st file");
-        // unwatchedCollection = new MovieCollection("Ivan's 2nd file");
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         isProgramRunning = true;

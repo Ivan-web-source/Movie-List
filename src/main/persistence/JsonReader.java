@@ -63,13 +63,13 @@ public class JsonReader {
     // MODIFIES: mc
     // EFFECTS: parses thingy from JSON object and adds it to movie collection
     private void addMovie(MovieCollection mc, JSONObject jsonObject) {
-        String name = jsonObject.getString("title");
+        String title = jsonObject.getString("title");
         String director = jsonObject.getString("director");
         String genre = jsonObject.getString("genre");
         int duration = jsonObject.getInt("duration");
         boolean watchedStatus = jsonObject.getBoolean("watch status");
         int rating = jsonObject.getInt("rating");
-        Movie newMovie = new Movie(name, director, genre, duration);
+        Movie newMovie = new Movie(title, director, genre, duration);
         if (watchedStatus) {
             newMovie.markAsWatched();
             newMovie.setRating(rating);
