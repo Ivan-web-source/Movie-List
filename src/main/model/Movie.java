@@ -60,6 +60,7 @@ public class Movie implements Writable {
         return isWatched;
     }
 
+    // EFFECTS: returns this as JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

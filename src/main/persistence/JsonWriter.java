@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 import java.io.*;
 
-// Represents a writer that writes JSON representation of workroom to file
+// Represents a writer that writes JSON representation of movie collection to file
 public class JsonWriter {
     private static final int TAB = 4;
     private PrintWriter writer;

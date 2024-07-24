@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import persistence.Writable;
 
+// Creates a list of movie object that contains the detail of each movie information
 public class MovieCollection implements Writable {
     private String name;
     private List<Movie> movieList;
@@ -51,6 +52,7 @@ public class MovieCollection implements Writable {
         return name;
     }
 
+    // EFFECTS: returns this as JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
