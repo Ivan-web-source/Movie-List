@@ -41,6 +41,7 @@ public class MovieCollection implements Writable {
     // MODIFIES: this
     // EFFECTS: adds a movie into the list of unwatched movie
     public void viewUnwatched() {
+        unwatchedList.clear();
         for (Movie currentMovie : movieList) {
             if (currentMovie.getWatchedStatus() == false) {
                 unwatchedList.add(currentMovie);

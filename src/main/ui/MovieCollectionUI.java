@@ -42,41 +42,14 @@ public class MovieCollectionUI implements ActionListener {
      *          button 6 allows user to exit the application
      */
     public MovieCollectionUI() {
-        init();
-
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        introLabel.setFont(new Font("Serif", Font.BOLD, 40));
-        topPanel.add(introLabel);
-
-        JPanel imagePanel = new JPanel();
-        imagePanel.add(imageLabel);
-
-        JPanel buttonPanel = new JPanel(new GridLayout(6, 1, 10, 10));
-        buttonPanel.add(addButton);
-        buttonPanel.add(viewButton);
-        buttonPanel.add(unwatchedButton);
-        buttonPanel.add(saveButton);
-        buttonPanel.add(loadButton);
-        buttonPanel.add(quitButton);
-
-        frame.setLayout(new BorderLayout());
-        frame.add(topPanel, BorderLayout.NORTH);
-        frame.add(imagePanel, BorderLayout.CENTER);
-        frame.add(buttonPanel, BorderLayout.SOUTH);
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Movie Collection");
-        frame.pack();
-        frame.setVisible(true);
-
-        actionListener();
-    }
-
-    private void init() {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         movieList = new MovieCollection("My List");
+        init();
+    }
 
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    private void init() {
         frame = new JFrame();
         frame.setSize(550, 1200);
         frame.setLocation(500, 100);
@@ -89,6 +62,34 @@ public class MovieCollectionUI implements ActionListener {
         saveButton = new JButton("Save Movie List");
         loadButton = new JButton("Load Movie List");
         quitButton = new JButton("Exit Application");
+
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        introLabel.setFont(new Font("Serif", Font.BOLD, 40));
+        topPanel.add(introLabel);
+
+        JPanel imagePanel = new JPanel();
+        imagePanel.add(imageLabel);
+
+        JPanel buttonPanel = new JPanel(new GridLayout(3, 2, 10, 10));
+        buttonPanel.add(addButton);
+        buttonPanel.add(viewButton);
+        buttonPanel.add(unwatchedButton);
+        buttonPanel.add(saveButton);
+        buttonPanel.add(loadButton);
+        buttonPanel.add(quitButton);
+        buttonPanel.setBackground(Color.LIGHT_GRAY);
+
+        frame.setLayout(new BorderLayout());
+        frame.add(topPanel, BorderLayout.NORTH);
+        frame.add(imagePanel, BorderLayout.CENTER);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Movie Collection");
+        frame.pack();
+        frame.setVisible(true);
+
+        actionListener();
     }
 
     public void actionListener() {
@@ -116,12 +117,15 @@ public class MovieCollectionUI implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "AddMovie":
+                frame.dispose();
                 addMovie();
                 break;
             case "ViewList":
+                frame.dispose();
                 viewList();
                 break;
             case "ViewUnwatchedList":
+                frame.dispose();
                 viewUnwatchedList();
                 break;
             case "SaveList":
@@ -167,6 +171,7 @@ public class MovieCollectionUI implements ActionListener {
 
             JOptionPane.showMessageDialog(null, "Movie successfully added!");
         }
+        init();
     }
 
     public void viewList() {
@@ -178,9 +183,11 @@ public class MovieCollectionUI implements ActionListener {
         }
 
         JOptionPane.showMessageDialog(null, movieListStr.toString());
+        init();
     }
 
     public void viewUnwatchedList() {
+        movieList.viewUnwatched();
         List<Movie> unwatchedMovies = movieList.getUnwatchedList();
         StringBuilder unwatchedListStr = new StringBuilder("Unwatched Movies:\n");
 
@@ -189,6 +196,7 @@ public class MovieCollectionUI implements ActionListener {
         }
 
         JOptionPane.showMessageDialog(null, unwatchedListStr.toString());
+        init();
     }
 
     public void saveList() {

@@ -1,11 +1,4 @@
 {
-    "movies": [{
-        "duration": 127,
-        "director": "Gregor",
-        "genre": "Action",
-        "rating": 0,
-        "watch status": false,
-        "title": "John Wick 2"
-    }],
+    "movies": [],
     "name": "My List"
 }
