@@ -33,13 +33,7 @@ public class MovieCollectionUI implements ActionListener {
     private JLabel imageLabel;
 
     /*
-     * EFFECTS: handles user input on each action
-     *          button 1 allows user to add a movie
-     *          button 2 allows user to view movie list
-     *          button 3 allows user to view unwatched movie list
-     *          button 4 allows user to save movie list
-     *          button 5 allows user to load movie list
-     *          button 6 allows user to exit the application
+     * EFFECTS: constructs saving, loading, movie collection objects
      */
     public MovieCollectionUI() {
         jsonWriter = new JsonWriter(JSON_STORE);
@@ -48,6 +42,15 @@ public class MovieCollectionUI implements ActionListener {
         init();
     }
 
+    /*
+     * EFFECTS: constructs and handles user input on each buttons
+     *          button 1 allows user to add a movie
+     *          button 2 allows user to view movie list
+     *          button 3 allows user to view unwatched movie list
+     *          button 4 allows user to save movie list
+     *          button 5 allows user to load movie list
+     *          button 6 allows user to exit the application
+     */
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void init() {
         frame = new JFrame();
@@ -92,6 +95,9 @@ public class MovieCollectionUI implements ActionListener {
         actionListener();
     }
 
+    /*
+     * EFFECTS: creates action command for each button
+     */
     public void actionListener() {
         addButton.addActionListener(this);
         addButton.setActionCommand("AddMovie");
@@ -112,8 +118,11 @@ public class MovieCollectionUI implements ActionListener {
         quitButton.setActionCommand("Exit");
     }
 
+    /*
+     * EFFECTS: creates cases and close frame for several cases like adding movie
+     *          viewing movie list, and viewing unwatched movie list
+     */
     @Override
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "AddMovie":
@@ -140,6 +149,9 @@ public class MovieCollectionUI implements ActionListener {
         }
     }
 
+    /* MODIFIES: this
+     * EFFECTS: creates a form for users to insert input and add the input to create a new movie
+     */
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public void addMovie() {
         JTextField titleField = new JTextField(5);
@@ -174,6 +186,9 @@ public class MovieCollectionUI implements ActionListener {
         init();
     }
 
+    /* 
+     * EFFECTS: view all the movies added by the order they were added
+     */
     public void viewList() {
         List<Movie> movies = movieList.getMovieList();
         StringBuilder movieListStr = new StringBuilder("Movie List:\n");
@@ -186,6 +201,9 @@ public class MovieCollectionUI implements ActionListener {
         init();
     }
 
+    /*
+     * EFFECTS: view all the unwatched movies added by the order they were added
+     */
     public void viewUnwatchedList() {
         movieList.viewUnwatched();
         List<Movie> unwatchedMovies = movieList.getUnwatchedList();
