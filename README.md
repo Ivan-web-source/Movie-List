@@ -19,5 +19,16 @@ As for the functionality of this application, **cinema enjoyers** can use this a
 - As a user, I want to be able to view a list of the titles of the movies in my list of movie 
 - As a user, I want to be able to see the list of unwatched movies in my list
 - As a user, I want to be able to give a rating to each movie that I have already watched 
+
+## User Stories Phase 2
+
 - As a user, I want to have the chance to save my Movie Collection to file
 - As a user, I want to have an option to load my saved Movie Collection from file
+
+# Instructions for Grader
+
+- You can generate the first required action related to the user story "adding multiple Xs to a Y" by selecting the button labelled as "Add Movie".
+- You can generate the second required action related to the user story "adding multiple Xs to a Y" by selecting the button labelled as "View Movie List".
+- You can locate my visual component by starting the GUI application.
+- You can save the state of my application by selecting the button labelled as "Save Movie List".
+- You can reload the state of my application by selecting the button labelled as "Load Movie List".
