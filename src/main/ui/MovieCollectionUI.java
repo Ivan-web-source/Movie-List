@@ -275,19 +275,19 @@ public class MovieCollectionUI implements ActionListener {
             JLabel directorLabel = new JLabel("Director : " + currentMovie.getDirector());
             JLabel genreLabel = new JLabel("Genre : " + currentMovie.getGenre());
             JLabel durationLabel = new JLabel("Duration : " + currentMovie.getDuration());
+            JLabel ratingLabel = new JLabel("Rating : " + currentMovie.getRating());
 
             movieLabel.setFont(new Font("Serif", Font.BOLD, 25));
             directorLabel.setFont(new Font("Serif", Font.BOLD, 20));
             genreLabel.setFont(new Font("Serif", Font.BOLD, 20));
             durationLabel.setFont(new Font("Serif", Font.BOLD, 20));
+            ratingLabel.setFont(new Font("Serif", Font.BOLD, 20));
 
             extendPanel.add(movieLabel);
             extendPanel.add(directorLabel);
             extendPanel.add(genreLabel);
             extendPanel.add(durationLabel);
-            if (currentMovie.getWatchedStatus()) {
-                JLabel ratingLabel = new JLabel("Duration : " + currentMovie.getRating());
-                ratingLabel.setFont(new Font("Serif", Font.BOLD, 20));
+            if (currentMovie.getWatchedStatus() == true) {
                 extendPanel.add(ratingLabel);
             }
             extendPanel.add(Box.createVerticalStrut(5));
