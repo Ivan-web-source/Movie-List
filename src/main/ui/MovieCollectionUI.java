@@ -37,6 +37,7 @@ public class MovieCollectionUI implements ActionListener {
 
     /*
      * EFFECTS: constructs saving, loading, movie collection objects
+     *          and buttons for expanding, rating, and returning to main page
      */
     public MovieCollectionUI() {
         jsonWriter = new JsonWriter(JSON_STORE);
@@ -57,24 +58,10 @@ public class MovieCollectionUI implements ActionListener {
      *          button 5 allows user to load movie list
      *          button 6 allows user to exit the application
      */
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void init() {
-        frame = new JFrame();
-        frame.setSize(550, 1200);
-        frame.setLocation(500, 100);
-        introLabel = new JLabel("Welcome to your Movie Collection!");
-        // adapted from https://www.istockphoto.com/search/2/film?phrase=movie+camera+icon
-        ImageIcon imageIcon = new ImageIcon("./img/MovieIcon.jpg");
-        imageLabel = new JLabel(imageIcon);
-        addButton = new JButton("Add Movie");
-        viewButton = new JButton("View Movie List");
-        unwatchedButton = new JButton("View Unwatched Movies");
-        saveButton = new JButton("Save Movie List");
-        loadButton = new JButton("Load Movie List");
-        quitButton = new JButton("Exit Application");
+        initFrame();
 
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        introLabel.setFont(new Font("Serif", Font.BOLD, 40));
+        JPanel topPanel = getInitImage();
         topPanel.add(introLabel);
 
         JPanel imagePanel = new JPanel();
@@ -103,6 +90,34 @@ public class MovieCollectionUI implements ActionListener {
     }
 
     /*
+     * EFFECTS: instantiates frames and buttons for the main page
+     */
+    private void initFrame() {
+        frame = new JFrame();
+        frame.setSize(550, 1200);
+        frame.setLocation(500, 100);
+        addButton = new JButton("Add Movie");
+        viewButton = new JButton("View Movie List");
+        unwatchedButton = new JButton("View Unwatched Movies");
+        saveButton = new JButton("Save Movie List");
+        loadButton = new JButton("Load Movie List");
+        quitButton = new JButton("Exit Application");
+    }
+
+    /*
+     * EFFECTS: instantiates image display and intro text for the application
+     */
+    private JPanel getInitImage() {
+        introLabel = new JLabel("Welcome to your Movie Collection!");
+        // adapted from https://www.istockphoto.com/search/2/film?phrase=movie+camera+icon
+        ImageIcon imageIcon = new ImageIcon("./img/MovieIcon.jpg");
+        imageLabel = new JLabel(imageIcon);
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        introLabel.setFont(new Font("Serif", Font.BOLD, 40));
+        return topPanel;
+    }
+
+    /*
      * EFFECTS: creates action command for each button
      */
     public void actionListener() {
@@ -126,6 +141,7 @@ public class MovieCollectionUI implements ActionListener {
     }
 
     /*
+     * MODIFIES: this
      * EFFECTS: creates cases and close frame for several cases like adding movie
      *          viewing movie list, and viewing unwatched movie list
      */
@@ -205,6 +221,8 @@ public class MovieCollectionUI implements ActionListener {
 
     /* 
      * EFFECTS: view all the movies added by the order they were added
+     *          and provided options for user to expand movie list or
+     *          return back to the main page
      */
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public void viewList() {
@@ -241,6 +259,10 @@ public class MovieCollectionUI implements ActionListener {
         homeButton.setActionCommand("Home");
     }
 
+    /* 
+     * EFFECTS: view all the movies added by the order they were added
+     *          and shows rating for the movie that has been watched by user
+     */
     private void expandInterface() {
         JFrame frame = new JFrame();
         frame.setLocation(500, 100);
@@ -265,6 +287,10 @@ public class MovieCollectionUI implements ActionListener {
         homeButton.setActionCommand("Home");
     }
 
+    /* 
+     * EFFECTS: returns all the details information like title, director
+     *          genre(, and rating if movie has been watched) for each movie
+     */
     private void getMovieList(JPanel extendPanel) {
         List<Movie> movies = movieList.getMovieList();
         extendPanel.setLayout(new BoxLayout(extendPanel, BoxLayout.Y_AXIS));
@@ -296,6 +322,7 @@ public class MovieCollectionUI implements ActionListener {
 
     /*
      * EFFECTS: view all the unwatched movies added by the order they were added
+     *          and provided options to rate a movie or return back to the main page
      */
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public void viewUnwatchedList() {
@@ -333,6 +360,9 @@ public class MovieCollectionUI implements ActionListener {
         homeButton.setActionCommand("Home");
     }
 
+    /*
+     * EFFECTS: creates a frame for user to choose a movie to rate
+     */
     private void rateInterface() {
         JTextField rateField = new JTextField(5);
 
@@ -349,6 +379,10 @@ public class MovieCollectionUI implements ActionListener {
         }
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: receives a rating (1-5) and save it for a movie
+     */
     private void handleRating(int rateMovie) {
         Movie movieToRate = movieList.getMovieList().get(rateMovie - 1);
         JTextField rating = new JTextField(5);
@@ -369,6 +403,7 @@ public class MovieCollectionUI implements ActionListener {
         }
     }
 
+    // EFFECTS: saves the movie collection to file
     public void saveList() {
         try {
             jsonWriter.open();
@@ -380,6 +415,8 @@ public class MovieCollectionUI implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads movie collection from file
     public void loadList() {
         try {
             movieList = jsonReader.read();
