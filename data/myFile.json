@@ -1,4 +1,21 @@
 {
-    "movies": [],
+    "movies": [
+        {
+            "duration": 30,
+            "director": "test",
+            "genre": "test",
+            "rating": 0,
+            "watch status": false,
+            "title": "test"
+        },
+        {
+            "duration": 34,
+            "director": "john",
+            "genre": "act",
+            "rating": 3,
+            "watch status": true,
+            "title": "marvel"
+        }
+    ],
     "name": "My List"
 }

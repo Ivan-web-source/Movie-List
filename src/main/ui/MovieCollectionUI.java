@@ -25,6 +25,9 @@ public class MovieCollectionUI implements ActionListener {
     private JButton saveButton;
     private JButton loadButton;
     private JButton quitButton;
+    private JButton expandButton;
+    private JButton rateButton;
+    private JButton homeButton;
 
     private static final String JSON_STORE = "./data/myFile.json";
     private JsonWriter jsonWriter;
@@ -39,6 +42,9 @@ public class MovieCollectionUI implements ActionListener {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         movieList = new MovieCollection("My List");
+        expandButton = new JButton("Extend Movie List");
+        rateButton = new JButton("Rate Movie");
+        homeButton = new JButton("Return to Main Page");
         init();
     }
 
@@ -57,6 +63,7 @@ public class MovieCollectionUI implements ActionListener {
         frame.setSize(550, 1200);
         frame.setLocation(500, 100);
         introLabel = new JLabel("Welcome to your Movie Collection!");
+        // adapted from https://www.istockphoto.com/search/2/film?phrase=movie+camera+icon
         ImageIcon imageIcon = new ImageIcon("./img/MovieIcon.jpg");
         imageLabel = new JLabel(imageIcon);
         addButton = new JButton("Add Movie");
@@ -123,6 +130,7 @@ public class MovieCollectionUI implements ActionListener {
      *          viewing movie list, and viewing unwatched movie list
      */
     @Override
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "AddMovie":
@@ -142,6 +150,15 @@ public class MovieCollectionUI implements ActionListener {
                 break;
             case "LoadList":
                 loadList();
+                break;
+            case "Expand":
+                expandInterface();
+                break;
+            case "Rate":
+                rateInterface();
+                break;
+            case "Home":
+                init();
                 break;
             case "Exit":
                 frame.dispose();
@@ -189,32 +206,167 @@ public class MovieCollectionUI implements ActionListener {
     /* 
      * EFFECTS: view all the movies added by the order they were added
      */
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public void viewList() {
         List<Movie> movies = movieList.getMovieList();
-        StringBuilder movieListStr = new StringBuilder("Movie List:\n");
-
-        for (Movie movie : movies) {
-            movieListStr.append(movie.getTitle()).append("\n");
+        JFrame frame = new JFrame();
+        frame.setLocation(500, 100);
+        JLabel listLabel = new JLabel("Movie List:");
+        listLabel.setFont(new Font("Serif", Font.BOLD, 35));
+        JPanel extendPanel = new JPanel(new GridLayout(10, 2, 10, 5));
+        extendPanel.setPreferredSize(new Dimension(300, 500));
+        extendPanel.add(listLabel);
+        for (int i = 1; i <= movies.size(); i++) {
+            Movie currentMovie = movies.get(i - 1);
+            JLabel movieLabel = new JLabel("Movie " + i + ": " + currentMovie.getTitle());
+            movieLabel.setFont(new Font("Serif", Font.BOLD, 25));
+            extendPanel.add(movieLabel);
         }
+        extendPanel.add(expandButton);
+        extendPanel.add(homeButton);
 
-        JOptionPane.showMessageDialog(null, movieListStr.toString());
-        init();
+        extendPanel.setBackground(Color.ORANGE);
+
+        frame.setLayout(new BorderLayout());
+        frame.add(extendPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Movie Collection");
+        frame.pack();
+        frame.setVisible(true);
+
+        expandButton.addActionListener(this);
+        expandButton.setActionCommand("Expand");
+
+        homeButton.addActionListener(this);
+        homeButton.setActionCommand("Home");
+    }
+
+    private void expandInterface() {
+        JFrame frame = new JFrame();
+        frame.setLocation(500, 100);
+        JLabel listLabel = new JLabel("Movie List:");
+        listLabel.setFont(new Font("Serif", Font.BOLD, 35));
+        JPanel extendPanel = new JPanel(new GridLayout(10, 2, 10, 5));
+        extendPanel.setPreferredSize(new Dimension(300, 500));
+        extendPanel.add(listLabel);
+        getMovieList(extendPanel);
+        extendPanel.add(homeButton);
+
+        extendPanel.setBackground(Color.ORANGE);
+
+        frame.setLayout(new BorderLayout());
+        frame.add(extendPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Movie Collection");
+        frame.pack();
+        frame.setVisible(true);
+
+        homeButton.addActionListener(this);
+        homeButton.setActionCommand("Home");
+    }
+
+    private void getMovieList(JPanel extendPanel) {
+        List<Movie> movies = movieList.getMovieList();
+        extendPanel.setLayout(new BoxLayout(extendPanel, BoxLayout.Y_AXIS));
+        for (int i = 1; i <= movies.size(); i++) {
+            Movie currentMovie = movies.get(i - 1);
+
+            JLabel movieLabel = new JLabel("Movie " + i + ": " + currentMovie.getTitle());
+            JLabel directorLabel = new JLabel("Director : " + currentMovie.getDirector());
+            JLabel genreLabel = new JLabel("Genre : " + currentMovie.getGenre());
+            JLabel durationLabel = new JLabel("Duration : " + currentMovie.getDuration());
+
+            movieLabel.setFont(new Font("Serif", Font.BOLD, 25));
+            directorLabel.setFont(new Font("Serif", Font.BOLD, 20));
+            genreLabel.setFont(new Font("Serif", Font.BOLD, 20));
+            durationLabel.setFont(new Font("Serif", Font.BOLD, 20));
+
+            extendPanel.add(movieLabel);
+            extendPanel.add(directorLabel);
+            extendPanel.add(genreLabel);
+            extendPanel.add(durationLabel);
+            if (currentMovie.getWatchedStatus()) {
+                JLabel ratingLabel = new JLabel("Duration : " + currentMovie.getRating());
+                ratingLabel.setFont(new Font("Serif", Font.BOLD, 20));
+                extendPanel.add(ratingLabel);
+            }
+            extendPanel.add(Box.createVerticalStrut(5));
+        }
     }
 
     /*
      * EFFECTS: view all the unwatched movies added by the order they were added
      */
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public void viewUnwatchedList() {
         movieList.viewUnwatched();
         List<Movie> unwatchedMovies = movieList.getUnwatchedList();
-        StringBuilder unwatchedListStr = new StringBuilder("Unwatched Movies:\n");
-
-        for (Movie movie : unwatchedMovies) {
-            unwatchedListStr.append(movie.getTitle()).append("\n");
+        JFrame frame = new JFrame();
+        frame.setLocation(500, 100);
+        JLabel listLabel = new JLabel("Movie List:");
+        listLabel.setFont(new Font("Serif", Font.BOLD, 35));
+        JPanel extendPanel = new JPanel(new GridLayout(10, 2, 10, 5));
+        extendPanel.setPreferredSize(new Dimension(300, 500));
+        extendPanel.add(listLabel);
+        for (int i = 1; i <= unwatchedMovies.size(); i++) {
+            Movie currentMovie = unwatchedMovies.get(i - 1);
+            JLabel movieLabel = new JLabel("Movie " + i + ": " + currentMovie.getTitle());
+            movieLabel.setFont(new Font("Serif", Font.BOLD, 25));
+            extendPanel.add(movieLabel);
         }
+        extendPanel.add(rateButton);
+        extendPanel.add(homeButton);
 
-        JOptionPane.showMessageDialog(null, unwatchedListStr.toString());
-        init();
+        extendPanel.setBackground(Color.ORANGE);
+
+        frame.setLayout(new BorderLayout());
+        frame.add(extendPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Movie Collection");
+        frame.pack();
+        frame.setVisible(true);
+
+        rateButton.addActionListener(this);
+        rateButton.setActionCommand("Rate");
+
+        homeButton.addActionListener(this);
+        homeButton.setActionCommand("Home");
+    }
+
+    private void rateInterface() {
+        JTextField rateField = new JTextField(5);
+
+        JPanel myPanel = new JPanel();
+        myPanel.setLayout(new GridLayout(0, 2));
+        myPanel.add(new JLabel("Select a movie you want to rate: "));
+        myPanel.add(rateField);
+
+        int result = JOptionPane.showConfirmDialog(null, myPanel, 
+                 "Please Enter Movie Choice", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            int rateMovie = Integer.parseInt(rateField.getText());
+            handleRating(rateMovie);
+        }
+    }
+
+    private void handleRating(int rateMovie) {
+        Movie movieToRate = movieList.getMovieList().get(rateMovie - 1);
+        JTextField rating = new JTextField(5);
+
+        JPanel myPanel = new JPanel();
+        myPanel.setLayout(new GridLayout(0, 2));
+        myPanel.add(new JLabel("Enter your rating (1-5): "));
+        myPanel.add(rating);
+
+        int result = JOptionPane.showConfirmDialog(null, myPanel, 
+                 "Please Enter Movie Choice", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            int rate = Integer.parseInt(rating.getText());
+            movieToRate.setRating(rate);
+            movieToRate.markAsWatched();
+
+            JOptionPane.showMessageDialog(null, "Rating successfully added!");
+        }
     }
 
     public void saveList() {
