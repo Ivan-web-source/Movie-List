@@ -33,16 +33,16 @@ As for the functionality of this application, **cinema enjoyers** can use this a
 - You can save the state of my application by selecting the button labelled as "Save Movie List".
 - You can reload the state of my application by selecting the button labelled as "Load Movie List".
 
-# Phase 4: Task 2
+# Phase 4: Task 2 (actual form are without bulleted list)
 
-Mon Aug 05 12:36:42 PDT 2024
-New movie: Movie 1 has been added.
-Mon Aug 05 12:37:01 PDT 2024
-New movie: Movie 2 has been added.
-Mon Aug 05 12:37:14 PDT 2024
-Movie Movie 2 has been watched.
-Mon Aug 05 12:37:14 PDT 2024
-Movie 2 rating added.
+- Mon Aug 05 12:36:42 PDT 2024
+- New movie: Movie 1 has been added.
+- Mon Aug 05 12:37:01 PDT 2024
+- New movie: Movie 2 has been added.
+- Mon Aug 05 12:37:14 PDT 2024
+- Movie Movie 2 has been watched.
+- Mon Aug 05 12:37:14 PDT 2024
+- Movie 2 rating added.
 
 # Phase 4: Task 3
 
