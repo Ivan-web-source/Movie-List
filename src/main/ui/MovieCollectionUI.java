@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.swing.*;
 
+import model.Event;
+import model.EventLog;
 import model.Movie;
 import model.MovieCollection;
 import persistence.JsonReader;
@@ -178,6 +180,10 @@ public class MovieCollectionUI implements ActionListener {
                 break;
             case "Exit":
                 frame.dispose();
+                EventLog el = EventLog.getInstance();
+                for (Event event: el) {
+                    System.out.println(event.toString());
+                }
                 System.exit(0);
         }
     }
@@ -398,8 +404,8 @@ public class MovieCollectionUI implements ActionListener {
                  "Please Enter Movie Choice", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
             int rate = Integer.parseInt(rating.getText());
-            movieToRate.setRating(rate);
             movieToRate.markAsWatched();
+            movieToRate.setRating(rate);
 
             JOptionPane.showMessageDialog(null, "Rating successfully added!");
         }

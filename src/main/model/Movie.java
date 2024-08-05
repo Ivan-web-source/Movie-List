@@ -44,6 +44,7 @@ public class Movie implements Writable {
 
     public void setRating(int r) {
         rating = r;
+        EventLog.getInstance().logEvent(new Event(this.getTitle() + " rating added."));
     }
 
     public int getRating() {
@@ -54,6 +55,7 @@ public class Movie implements Writable {
     // EFFECTS: mark a movie status as watched
     public void markAsWatched() {
         isWatched = true;
+        EventLog.getInstance().logEvent(new Event("Movie " + this.getTitle() + " has been watched."));
     }
 
     public boolean getWatchedStatus() {

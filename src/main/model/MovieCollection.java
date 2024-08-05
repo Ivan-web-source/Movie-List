@@ -26,6 +26,7 @@ public class MovieCollection implements Writable {
     // EFFECTS: adds a movie into the list of movie
     public void addMovie(Movie newMovie) {
         movieList.add(newMovie);
+        EventLog.getInstance().logEvent(new Event("New movie: " + newMovie.getTitle() + " has been added."));
     }
 
     // EFFECTS: returns a list of movie (watched and unwatched)
