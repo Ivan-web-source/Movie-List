@@ -180,8 +180,7 @@ public class MovieCollectionUI implements ActionListener {
                 break;
             case "Exit":
                 frame.dispose();
-                EventLog el = EventLog.getInstance();
-                for (Event event: el) {
+                for (Event event: EventLog.getInstance()) {
                     System.out.println(event.toString());
                 }
                 System.exit(0);

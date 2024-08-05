@@ -44,3 +44,6 @@ Movie Movie 2 has been watched.
 Mon Aug 05 12:37:14 PDT 2024
 Movie 2 rating added.
 
+# Phase 4: Task 3
+
+Based on looking at my UML design, one thing that I might consider to refactor if I have more time is to create a new abstract class "MovieUI" that can combine the similar methods from "MovieCollectionApp" and "MovieCollectionUI". And because of that change, both classes will extend "MovieUI" and override or add new methods that are based on the needs of presenting in console or graphical interface. In this way, I can organize the similar methods that these two classes implement while improving my project design.
