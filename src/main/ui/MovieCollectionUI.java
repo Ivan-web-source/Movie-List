@@ -360,7 +360,8 @@ public class MovieCollectionUI implements ActionListener {
         homeButton.setActionCommand("Home");
     }
 
-    /*
+    /* 
+     * REQUIRES: 1<= rateMovie <= movieList.size() 
      * EFFECTS: creates a frame for user to choose a movie to rate
      */
     private void rateInterface() {
@@ -380,6 +381,7 @@ public class MovieCollectionUI implements ActionListener {
     }
 
     /*
+     * REQUIRES: 1 <= rating <= 5
      * MODIFIES: this
      * EFFECTS: receives a rating (1-5) and save it for a movie
      */
